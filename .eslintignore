@@ -1,0 +1,12 @@
+assets/
+dist/
+node_modules/
+public/
+.husky/
+.yarn/
+
+.*rc.js
+*.config.js
+*.css
+*.pcss
+*.scss

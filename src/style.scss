@@ -1,0 +1,172 @@
+.flow-line {
+  $primary-color: #339af0;
+  $waiting-color: #adb5bd;
+  $success-color: #20c997;
+  $fail-color: #f03e3e;
+  $warning-color: #fab005;
+
+  $node-type-color: (
+    pending: $primary-color,
+    success: $success-color,
+    fail: $fail-color,
+    warning: $warning-color // 需方在最后
+  );
+
+  $line-type-color: (
+    pending: $primary-color,
+    success: $success-color,
+    fail: $fail-color
+  );
+
+  position: relative;
+
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  &__row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+
+    &:nth-of-type(even) {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+
+  &__role {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 8px;
+    text-align: center;
+    user-select: none;
+  }
+
+  &__node {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px;
+    padding-left: 10px;
+    user-select: none;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 4px #ced4da;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      content: '';
+      border-left: 4px solid $waiting-color;
+      border-radius: 4px 0 0 4px;
+    }
+  }
+
+  &__index {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    margin-left: 6px;
+    font-family: Tahoma, serif;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background-color: $waiting-color;
+    border-radius: 50%;
+  }
+
+  @each $type in map-keys($node-type-color) {
+    $color: map-get($node-type-color, $type);
+
+    &__node--#{$type} &__content {
+      &::before {
+        border-left-color: $color;
+      }
+    }
+
+    &__node--#{$type} &__index {
+      background-color: $color;
+    }
+  }
+
+  &__line {
+    position: absolute;
+    border: 0 solid $waiting-color;
+
+    &--horizontal {
+      border-top-width: 1px;
+    }
+
+    &--vertical {
+      border-left-width: 1px;
+    }
+
+    &--pending {
+      border-style: dashed;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    &::after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      content: '';
+      border: 4px solid transparent;
+      border-bottom: 8px solid $waiting-color;
+      transform: translate(calc(-50% + 0.5px), calc(-25% - 1.5px));
+    }
+
+    &--horizontal {
+      transform: rotate(90deg);
+    }
+
+    &--reverse {
+      transform: rotate(180deg);
+
+      &::after {
+        transform: translate(calc(-50% - 0.5px), calc(-25% - 1.5px));
+      }
+    }
+  }
+
+  @each $type in map-keys($line-type-color) {
+    $color: map-get($line-type-color, $type);
+
+    &__line--#{$type} {
+      border-color: $color;
+    }
+
+    &__arrow--#{$type} {
+      &::after {
+        border-bottom-color: $color;
+      }
+    }
+  }
+}
