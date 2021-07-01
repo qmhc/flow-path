@@ -2,6 +2,8 @@
 
 A vue3 component that can quickly create flowcharts.
 
+![appearance.png](./appearance.png)
+
 ## Install
 
 ```sh
