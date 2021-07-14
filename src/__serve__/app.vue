@@ -1,18 +1,18 @@
 <template>
-  <FlowMap :nodes="nodes" :role-order="roleOrder"></FlowMap>
-  <FlowMap :nodes="nodes1" :role-order="roleOrder1" auto-state></FlowMap>
+  <FlowPath :nodes="nodes" :role-order="roleOrder"></FlowPath>
+  <FlowPath :nodes="nodes1" :role-order="roleOrder1" auto-state></FlowPath>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { FlowMap } from '..'
+import { FlowPath } from '..'
 
 import type { NodeOptions } from '../types'
 
 export default defineComponent({
   name: 'App',
   components: {
-    FlowMap
+    FlowPath
   },
   setup() {
     const nodes: NodeOptions[] = [

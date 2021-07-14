@@ -135,7 +135,7 @@ export default defineComponent({
   },
   emits: ['on-node-click'],
   setup(props) {
-    const prefix = 'flow-line'
+    const prefix = 'flow-path'
 
     const roleList = ref<string[]>(null!)
     const lineList = ref<FlowLine[]>(null!)

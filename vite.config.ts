@@ -7,8 +7,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'FlowMap',
-      fileName: 'flow-map'
+      name: 'FlowPath',
+      fileName: 'flow-path'
     }
   },
   plugins: [

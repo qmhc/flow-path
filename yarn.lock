@@ -3767,9 +3767,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-map@workspace:.":
+"flow-path@workspace:.":
   version: 0.0.0-use.local
-  resolution: "flow-map@workspace:."
+  resolution: "flow-path@workspace:."
   dependencies:
     "@commitlint/cli": ^12.1.4
     "@commitlint/config-conventional": ^12.1.4

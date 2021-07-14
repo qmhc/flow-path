@@ -51,11 +51,20 @@
     "vite": "^2.3.8",
     "vite-plugin-dts": "^0.5.1"
   },
-  "name": "flow-map",
+  "license": "MIT",
+  "main": "dist/flow-path.umd.js",
+  "module": "dist/flow-path.es.js",
+  "name": "flow-path",
   "scripts": {
     "build": "vite build && yarn run bundle-types",
     "bundle-types": "api-extractor run --local --verbose && rimraf ./dist/src",
+    "postinstall": "is-ci || husky install",
+    "postpublish": "pinst --enable",
+    "precommit": "lint-staged -c ./.husky/.lintstagedrc",
+    "prepublishOnly": "pinst --disable",
+    "release": "npm publish --registry=https://registry.npmjs.org/",
     "serve": "vite"
   },
+  "typings": "dist/flow-path.d.ts",
   "version": "0.1.0"
 }

@@ -1,4 +1,4 @@
-# Flow Map
+# Flow Path
 
 A vue3 component that can quickly create flowcharts.
 
@@ -7,26 +7,26 @@ A vue3 component that can quickly create flowcharts.
 ## Install
 
 ```sh
-yarn add flow-map
+yarn add flow-path
 ```
 
 ## Usage
 
 ```vue
 <template>
-  <FlowMap :nodes="nodes" :role-order="roleOrder"></FlowMap>
+  <FlowPath :nodes="nodes" :role-order="roleOrder"></FlowPath>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { FlowMap } from 'flow-map'
+import { FlowPath } from 'flow-path'
 
-import type { NodeOptions } from 'flow-map'
+import type { NodeOptions } from 'flow-path'
 
 export default defineComponent({
   name: 'App',
   components: {
-    FlowMap
+    FlowPath
   },
   setup() {
     const nodes: NodeOptions[] = [
