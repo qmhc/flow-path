@@ -8,11 +8,20 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'FlowPath',
-      fileName: 'flow-path'
+      formats: ['cjs', 'es', 'iife'],
+      fileName: format => `flow-path.${format === 'es' ? 'mjs' : format === 'cjs' ? 'cjs' : 'js'}`
+    },
+    rollupOptions: {
+      external: ['@vue', 'vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
+        }
+      }
     }
   },
   plugins: [
     vue(),
-    dts({ staticImport: true })
+    dts({ rollupTypes: true })
   ]
 })

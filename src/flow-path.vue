@@ -14,7 +14,7 @@
       <div
         v-for="node in roleRecord.get(index)"
         :key="node.id"
-        :ref="el => setElmentToMap(el, node.id, nodeElMap)"
+        :ref="el => setElementToMap(el, node.id, nodeElMap)"
         :class="[
           `${prefix}__node`,
           `${prefix}__node--${node.state}`,
@@ -41,7 +41,7 @@
     <template v-for="line in lineList" :key="line.id">
       <div
         v-if="line.from.column !== line.to.column"
-        :ref="el => setElmentToMap(el, `${line.id}-l`, lineElMap)"
+        :ref="el => setElementToMap(el, `${line.id}-l`, lineElMap)"
         :class="[
           `${prefix}__line`,
           `${prefix}__line--horizontal`,
@@ -55,7 +55,7 @@
       ></div>
       <div
         v-if="line.from.row !== line.to.row"
-        :ref="el => setElmentToMap(el, `${line.id}-v`, lineElMap)"
+        :ref="el => setElementToMap(el, `${line.id}-v`, lineElMap)"
         :class="[
           `${prefix}__line`,
           `${prefix}__line--vertical`,
@@ -68,7 +68,7 @@
         }"
       ></div>
       <div
-        :ref="el => setElmentToMap(el, line.id, arrowElMap)"
+        :ref="el => setElementToMap(el, line.id, arrowElMap)"
         :class="[
           `${prefix}__arrow`,
           `${prefix}__arrow--${getLineState(line)}`,
@@ -86,23 +86,23 @@
 
 <script lang="ts">
 import {
-  defineComponent,
-  ref,
   computed,
-  watchEffect,
-  onMounted,
+  defineComponent,
+  nextTick,
   onBeforeUpdate,
+  onMounted,
   onUpdated,
-  nextTick
+  ref,
+  watchEffect
 } from 'vue'
 
 import type { PropType } from 'vue'
-import type { Key, NodeState, NodeOptions, FlowNode, FlowLine } from './types'
+import type { FlowLine, FlowNode, Key, NodeOptions, NodeState } from './types'
 
 const nodeStates: NodeState[] = ['success', 'fail', 'pending', 'waiting']
 
 export default defineComponent({
-  name: 'FlowMap',
+  name: 'FlowPath',
   props: {
     nodes: {
       type: Array as PropType<NodeOptions[]>,
@@ -232,7 +232,7 @@ export default defineComponent({
               break
             }
           }
-          
+
           node = next
         }
       }
@@ -321,7 +321,7 @@ export default defineComponent({
           const from = existsLine.from.row
           const to = existsLine.to.row
 
-          if (from !== to && from < to !== isDown) {
+          if (from !== to && (from < to) !== isDown) {
             return !(Math.min(from, to) >= max || Math.max(from, to) <= min)
           }
         }
@@ -343,7 +343,9 @@ export default defineComponent({
     const lineElMap = ref(new Map<string, HTMLElement>())
     const arrowElMap = ref(new Map<string, HTMLElement>())
 
-    onMounted(() => nextTick(fixLinePosition))
+    onMounted(() => {
+      nextTick(fixLinePosition)
+    })
 
     onBeforeUpdate(() => {
       nodeElMap.value.clear()
@@ -351,7 +353,9 @@ export default defineComponent({
       arrowElMap.value.clear()
     })
 
-    onUpdated(() => nextTick(fixLinePosition))
+    onUpdated(() => {
+      nextTick(fixLinePosition)
+    })
 
     function fixLinePosition() {
       const rectMap = new Map<Key, DOMRect>()
@@ -448,13 +452,13 @@ export default defineComponent({
       return toState === 'fail'
         ? 'fail'
         : toState === 'pending'
-        ? 'pending'
-        : toState !== 'waiting'
-        ? 'success'
-        : 'waiting'
+          ? 'pending'
+          : toState !== 'waiting'
+            ? 'success'
+            : 'waiting'
     }
 
-    function setElmentToMap<T extends Key>(el: any, key: T, map: Map<T, HTMLElement>) {
+    function setElementToMap<T extends Key>(el: any, key: T, map: Map<T, HTMLElement>) {
       if (el) {
         map.set(key, el)
       }
@@ -471,7 +475,7 @@ export default defineComponent({
       arrowElMap,
 
       getLineState,
-      setElmentToMap
+      setElementToMap
     }
   }
 })
