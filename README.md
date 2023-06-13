@@ -7,7 +7,7 @@ A vue3 component that can quickly create flowcharts.
 ## Install
 
 ```sh
-yarn add flow-path
+pnpm i flow-path
 ```
 
 ## Usage
@@ -98,7 +98,7 @@ const props: {
 
 ## Play
 
-Clone and run `yarn run serve`, and check `src/__serve__`.
+Clone and run `pnpm run serve`, and check `src/__serve__`.
 
 ## License
 

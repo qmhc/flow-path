@@ -4,6 +4,7 @@
   "author": "qmhc",
   "type": "module",
   "license": "MIT",
+  "packageManager": "pnpm@8.2.0",
   "scripts": {
     "build": "vite build",
     "lint": "eslint --cache --ext .js,.ts,.tsx,.vue src/** --fix",
